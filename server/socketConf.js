@@ -12,7 +12,13 @@ let socketConf = {};
 socketConf.io = io;
 
 io.on('connection', function(socket) {
-	console.log('A user connected');
+	socket.broadcast.emit('chatMessage', 'user joined');
+	socket.on('chatMessage', function(msg) {
+		socket.broadcast.emit('chatMessage', msg);
+	});
+	socket.on('disconnect', function() {
+		socket.broadcast.emit('chatMessage', 'user left');
+	});
 });
 
 // socketConf.sendNotification = function() {

@@ -1,15 +1,28 @@
-# scaffold-express-vue-socket
+# Chat demo
 
-Scaffolding new project with:
+TODO:
 
-- Express (express-generator + env)
-- Vuejs (+ Vuex + router + Bootstrap + .env)
-- Socket.io 
+- Add support for nicknames.
+- Add “{user} is typing” functionality.
+- Show who’s online.
+- Add private messaging.
+- nice theme
+- emojies?
+- mobile version with notification sound/alert?
+- login page/lock screen name **\_\_** ?
+- multiple chatrooms, all private (keep connected sockets map and send only to them)
+- check useeful options in socket.io docs (cheetsheet)
+- show if msg was seen (ack)
+- show self msg on different side or different bg color
+  Tools:
+
+- Express
+- Vuejs
+- Socket.io
 
 Usage:
 
 ```
-> git clone reponame
 > cd server
 > npm i
 > nodemon
@@ -18,7 +31,3 @@ Usage:
 > npm i
 > npm run serve
 ```
-
-To use sockets, see example code in 
-
-`server/socketConf.js` and `client/src/components/HelloWorld.vue`
