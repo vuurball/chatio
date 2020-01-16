@@ -1,20 +1,18 @@
 # Chat demo
 
-TODO:
+![](https://github.com/vuurball/chatio/blob/master/demo.gif)
 
-- Add support for nicknames.
-- Add “{user} is typing” functionality.
-- Show who’s online.
-- Add private messaging.
-- nice theme
-- emojies?
-- mobile version with notification sound/alert?
-- login page/lock screen name **\_\_** ?
-- multiple chatrooms, all private (keep connected sockets map and send only to them)
-- check useeful options in socket.io docs (cheetsheet)
-- show if msg was seen (ack)
-- show self msg on different side or different bg color
-  Tools:
+Demo project for exploring socket.io+Vue- simple chat with following features:
+
+```
++ showing “{user} is typing” functionality.
++ Showing who’s online.
++ Support for nicknames.
++ Login page.
++ Vuex usage for demo purposes.
+```
+
+Tools:
 
 - Express
 - Vuejs

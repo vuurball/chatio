@@ -1,28 +1,31 @@
-/**
- * USAGE:
- * to use the socket anywhere else in the project
- * 1. include this file `var socketConf = require('../socketConf');`
- * 2. example of how to emit to client - socketConf.io.emit('marketPrices', {msg: 'test'});
- */
-
 const socket_io = require('socket.io');
 const io = socket_io();
 let socketConf = {};
 
 socketConf.io = io;
 
-io.on('connection', function(socket) {
-	socket.broadcast.emit('chatMessage', 'user joined');
-	socket.on('chatMessage', function(msg) {
-		socket.broadcast.emit('chatMessage', msg);
+let users = new Map(); //connected chat users (online)
+
+io.on('connection', socket => {
+	socket.on('join', userName => {
+		users.set(socket.id, userName);
+		io.emit('onlineUsers', Array.from(users.values()));
+		socket.broadcast.emit('joined', userName);
 	});
-	socket.on('disconnect', function() {
-		socket.broadcast.emit('chatMessage', 'user left');
+	socket.on('chatMessage', msg => {
+		socket.broadcast.emit('chatMessage', {
+			userName: users.get(socket.id),
+			msg: msg,
+		});
+	});
+	socket.on('userTyping', () => {
+		socket.broadcast.emit('userTyping', users.get(socket.id));
+	});
+	socket.on('disconnect', () => {
+		socket.broadcast.emit('left', users.get(socket.id));
+		users.delete(socket.id);
+		io.emit('onlineUsers', Array.from(users.values()));
 	});
 });
-
-// socketConf.sendNotification = function() {
-// 	io.sockets.emit('hello', { msg: 'Hello World!' });
-// };
 
 module.exports = socketConf;
